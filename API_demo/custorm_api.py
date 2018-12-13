@@ -98,9 +98,9 @@ class Kryptono(object):
             return
         print(resp)
         resp_json = json.loads(resp)
-        if not isinstance(resp_json, list):
-            # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
-            return
+        # if not isinstance(resp_json, list):
+        #     # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
+        #     return
 
         return resp_json
 
@@ -129,9 +129,9 @@ class Kryptono(object):
             return
         print(resp)
         resp_json = json.loads(resp)
-        if not isinstance(resp_json, list):
-            # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
-            return
+        # if not isinstance(resp_json, list):
+        #     # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
+        #     return
 
         return resp_json
 
@@ -184,9 +184,9 @@ class Kryptono(object):
             return
         print(resp)
         resp_json = json.loads(resp)
-        if not isinstance(resp_json, list):
-            # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
-            return
+        # if not isinstance(resp_json, list):
+        #     # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
+        #     return
 
         return resp_json
 
@@ -214,9 +214,9 @@ class Kryptono(object):
             return
         print(resp)
         resp_json = json.loads(resp)
-        if not isinstance(resp_json, list):
-            # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
-            return
+        # if not isinstance(resp_json, list):
+        #     # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
+        #     return
 
         return resp_json
         pass
@@ -243,9 +243,9 @@ class Kryptono(object):
             return
         print(resp)
         resp_json = json.loads(resp)
-        if not isinstance(resp_json, list):
-            # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
-            return
+        # if not isinstance(resp_json, list):
+        #     # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
+        #     return
 
         return resp_json
         pass
@@ -279,9 +279,9 @@ class Kryptono(object):
             return
         print(resp)
         resp_json = json.loads(resp)
-        if not isinstance(resp_json, list):
-            # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
-            return
+        # if not isinstance(resp_json, list):
+        #     # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
+        #     return
 
         return resp_json
         pass
@@ -299,18 +299,18 @@ class Kryptono(object):
         else:
             data['recvWindow'] = 5000
         data['timestamp'] = int(time.time()) * 1000
-        print('data:', data)
+        # print('data:', data)
 
         try:
             resp = self.__send("POST", '/api/v2/order/list/trades', data)
         except:
             # self.logger.error("Kryptono获取所有历史数据失败")
             return
-        print(resp)
+        print('resp',resp)
         resp_json = json.loads(resp)
-        if not isinstance(resp_json, list):
-            # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
-            return
+        # if not isinstance(resp_json, list):
+        #     # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
+        #     return
 
         return resp_json
         pass
@@ -323,18 +323,19 @@ class Kryptono(object):
         else:
             data['recvWindow'] = 5000
         data['timestamp'] = int(time.time()) * 1000
-        print('data:', data)
+        # print('data:', data)
 
         try:
             resp = self.__send("GET", '/api/v2/account/details', data)
         except:
             # self.logger.error("Kryptono获取所有历史数据失败")
             return
-        print(resp)
+        # print(resp)
         resp_json = json.loads(resp)
-        if not isinstance(resp_json, list):
-            # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
-            return
+        # print(resp_json,'----------------')
+        # if not isinstance(resp_json, list):
+        #     # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
+        #     return
 
         return resp_json
         pass
@@ -347,19 +348,19 @@ class Kryptono(object):
         else:
             data['recvWindow'] = 5000
         data['timestamp'] = int(time.time()) * 1000
-        print('data:', data)
+        # print('data:', data)
 
         try:
             resp = self.__send("GET", '/api/v2/account/balances', data)
         except:
             # self.logger.error("Kryptono获取所有历史数据失败")
             return
-        print(resp)
+        # print('resp',resp,type(resp))
         resp_json = json.loads(resp)
-        if not isinstance(resp_json, list):
-            # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
-            return
-
+        # if not isinstance(resp_json, list):
+        #     # self.logger.error("Kryptono获取所有历史数据失败:[%s]", resp)
+        #     return
+        # print('resp_json:',resp_json)
         return resp_json
         pass
 
@@ -367,10 +368,7 @@ class Kryptono(object):
 if __name__ == '__main__':
     kryptono = Kryptono(api_key, secret_key)
     data = {
-  "limit" : 10,
-  "page" : 0,
-  "symbol" : "KNOW_BTC",
-  "timestamp" : 1429514463299,
-  "recvWindow" : 5000
+  "symbol" : "SWC_BTC",
 }
-    print(kryptono.account_balances())
+    print(kryptono.get_trade_list(**data))
+    # print(kryptono.account_information())

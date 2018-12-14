@@ -49,4 +49,4 @@ class PublicApi(object):
 if __name__ == '__main__':
     pub_api = PublicApi()
     symbol = 'KNOW_ETH'
-    print(pub_api.trade_history(symbol))
+    print(pub_api.trans_data())

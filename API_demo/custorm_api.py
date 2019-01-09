@@ -7,6 +7,9 @@ import json
 import logging
 import time
 import urllib
+
+import requests
+
 import pandas as pd
 
 
@@ -66,7 +69,7 @@ class Kryptono(object):
         # print('resp:',resp)
         # print('resp_text:',resp_text,resp.status)
         if resp.status != 200:
-            print("Kryptono请求失败:[%s]", resp_text)
+            print("Kryptono请求失败:[%s]"%resp_text)
             raise Exception()
 
         # self.logger.debug("Kryptono请求结果:[%s]", resp_text)
@@ -95,6 +98,7 @@ class Kryptono(object):
         else:data['recvWindow'] = 5000
         data['timestamp'] = int(time.time()) * 1000
         print(data)
+
         def re_get():
             try:
                 global resp
@@ -382,6 +386,7 @@ class Kryptono(object):
             try:
                 global resp
                 resp = self.__send("GET", '/api/v2/account/balances', data)
+                # print(resp)
             except:
                 # self.logger.error("Kryptono获取所有历史数据失败")
                 re_get()
@@ -400,29 +405,31 @@ class Kryptono(object):
 if __name__ == '__main__':
     # Total must be equal or greater than 0.001 BTC
     kryptono = Kryptono(api_key, secret_key)
-    data = {
-  "order_symbol" : "SWC_ETH",
-  "order_side" : "BUY",
-  "order_price" : "0.00020000",
-  "order_size" : "500",
-  "type" : "LIMIT",
-  # "timestamp" : 1507725176599,
-  "recvWindow" : 5000
-}
-    data1 = {
-  "symbol" : "SWC_ETH",
-        # "order_id":"92fc5c6e-0b99-4c20-a923-952b26fd01ef"
-}
-    data2 = {
-  "order_id" : "4e90694d-7be2-4c15-99d3-71838515281b",
-  "order_symbol" : "SWC_ETH"
-}
-    content = kryptono.cancel_order(**data2)
-    # while content is None:
-    #     content = kryptono.get_trade_list(**data)
-    print(content)
-    # print('__main__',pd.DataFrame(content))
-    #pd.DataFrame(content)
-
-
-    # print(kryptono.account_information())
+#     data = {
+#   "order_symbol" : "SWC_ETH",
+#   "order_side" : "BUY",
+#   "order_price" : "0.00020000",
+#   "order_size" : "500",
+#   "type" : "LIMIT",
+#   # "timestamp" : 1507725176599,
+#   "recvWindow" : 5000
+# }
+#     data1 = {
+#   "symbol" : "SWC_ETH",
+#         # "order_id":"92fc5c6e-0b99-4c20-a923-952b26fd01ef"
+# }
+#     data2 = {
+#   "order_id" : "4e90694d-7be2-4c15-99d3-71838515281b",
+#   "order_symbol" : "SWC_ETH"
+# }
+#     content = kryptono.cancel_order(**data2)
+#     # while content is None:
+#     #     content = kryptono.get_trade_list(**data)
+#     print(content)
+#     # print('__main__',pd.DataFrame(content))
+#     #pd.DataFrame(content)
+#
+#
+#     # print(kryptono.account_information())
+    data = kryptono.account_balances()
+    print(data)
